@@ -53,7 +53,7 @@ public class GlobalExceptionHandler {
         );
     }
 
-    @ExceptionHandler(HttpMessageNotReadableException.class)
+    @ExceptionHandler(ServiceException.class)
     @ResponseBody
     public RsData<Void> handleException(ServiceException e) {
         return e.getRsData();
