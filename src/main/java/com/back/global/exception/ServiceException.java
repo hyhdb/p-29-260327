@@ -10,6 +10,7 @@ public class ServiceException extends RuntimeException {
     public ServiceException(String resultCode, String msg) {
         super(msg);
         this.msg = msg;
+        this.resultCode = resultCode;
     }
 
     public RsData<Void> getRsData() {
