@@ -1,4 +1,4 @@
-package com.back.global.webMvcConfig;
+package com.back.global.webMvc;
 
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
