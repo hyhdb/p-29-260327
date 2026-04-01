@@ -4,7 +4,6 @@ import com.back.domain.member.entity.Member;
 import com.back.domain.member.repository.MemberRepository;
 import com.back.domain.post.post.entity.Post;
 import com.back.domain.post.post.repository.PostRepository;
-import com.back.domain.post.post.service.PostService;
 import com.back.standard.ut.Ut;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -243,6 +242,7 @@ public class ApiV1PostControllerTest {
 
     @Test
     @DisplayName("글 작성, JSON 양식이 잘못된 경우")
+    @Transactional
     void t7() throws Exception {
         String title = "제목입니다.";
         String content = "내용입니다";
