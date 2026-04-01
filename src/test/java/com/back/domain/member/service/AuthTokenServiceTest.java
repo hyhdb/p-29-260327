@@ -53,7 +53,7 @@ public class AuthTokenServiceTest {
 
         Map<String, Object> payload = Map.of("name", "Paul", "age", 23);
 
-        //발급
+        // 발급
         String jwt = Jwts.builder()
                 .claims(payload) // 내용
                 .issuedAt(issuedAt) // 생성날짜
@@ -61,10 +61,13 @@ public class AuthTokenServiceTest {
                 .signWith(secretKey) // 키 서명
                 .compact();
 
-        //jwt 확인(파싱)
+        byte[] keyBytes2 = "abcdefghijklmnopqrstuvwxyz1234567890abcdefghijklmnopqrstuvwxyz1234567890xcvzxasdfqwer".getBytes(StandardCharsets.UTF_8);
+        SecretKey secretKey2 = Keys.hmacShaKeyFor(keyBytes2);
+
+        // jwt 확인(파싱)
         Map<String, Object> parsedPayload = (Map<String, Object>) Jwts
                 .parser()
-                .verifyWith(secretKey)
+                .verifyWith(secretKey2)
                 .build()
                 .parse(jwt)
                 .getPayload();
@@ -73,6 +76,7 @@ public class AuthTokenServiceTest {
                 .containsAllEntriesOf(payload);
 
         assertThat(jwt).isNotBlank();
+
 
         System.out.println("jwt = " + jwt);
     }
@@ -87,6 +91,9 @@ public class AuthTokenServiceTest {
         );
 
         assertThat(jwt).isNotBlank();
+
+        boolean rst = Ut.jwt.isValid(jwt, secretPattern);
+        assertThat(rst).isTrue();
 
         System.out.println("jwt = " + jwt);
     }
