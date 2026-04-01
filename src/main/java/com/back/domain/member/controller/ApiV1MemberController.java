@@ -70,7 +70,7 @@ public class ApiV1MemberController {
 
         rq.addCookie("apiKey", actor.getApiKey());
 
-        String accessToken = memberService.getAccessToken(actor);
+        String accessToken = memberService.genAccessToken(actor);
         rq.addCookie("accessToken", accessToken);
 
         return new RsData(
