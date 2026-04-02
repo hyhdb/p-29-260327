@@ -64,12 +64,9 @@ public class ApiV1MemberController {
                 () -> new ServiceException("401-1", "존재하지 않는 아이디입니다.")
         );
 
-        if(!actor.getPassword().equals(reqBody.password)){
-            throw new ServiceException("401-2", "비밀번호가 일치하지 않습니다.");
-        }
+        memberService.checkPassword(reqBody.password, actor.getPassword());
 
         rq.addCookie("apiKey", actor.getApiKey());
-
         String accessToken = memberService.genAccessToken(actor);
         rq.addCookie("accessToken", accessToken);
 
@@ -78,7 +75,8 @@ public class ApiV1MemberController {
                 "200-1",
                 new MemberLoginResBody(
                         actor.getApiKey(),
-                        accessToken)
+                        accessToken
+                )
         );
     }
 
@@ -93,14 +91,13 @@ public class ApiV1MemberController {
         );
     }
 
-
     @GetMapping("/me")
     public MemberDto me() {
 
-        //인증
+        // 인증
         Member tmpActor = rq.getActor();
 
-        //내 전체 회원 정보 조회가 목적
+        // 내 전체 회원 정보 조회가 목적
         Member realActor = memberService.findById(tmpActor.getId()).get();
 
         return new MemberDto(realActor);
